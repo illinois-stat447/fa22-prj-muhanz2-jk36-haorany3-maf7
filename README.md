@@ -8,3 +8,7 @@ In this project, we will be exploring Countrywide Traffic Accidents in the US fr
 
 # Change of plan
 Analyze of freedom affects prosperity. 
+
+# Data
+Atlantic Council Freedom and Prosperity Center
+https://www.atlanticcouncil.org/in-depth-research-reports/report/do-countries-need-freedom-to-achieve-prosperity/#data
