@@ -1,4 +1,105 @@
+---
+title: "prosperity_1125"
+author: "Jonathan Kang (jk36)"
+date: '2022-11-25'
+output: html_document
+---
+
+```{r, echo=FALSE, results='hide', message=FALSE}
+library(dplyr)
+library(tidyverse)
+library(readxl)
+library(sqldf)
+library(ggplot2)
+library(GGally)
+```
+# Import Data
+```{r}
+free_prosp_full_dataset <- read_excel("Freedom-and-Prosperity-Indexes-Full-Data-Set.xlsx", 
+    na = "no data")
+free_prosp_data <- sqldf("SELECT Region as region,
+              Country as country,
+              `Freedom rank 2021` as freedom_rank,
+              `Freedom category 2021` as freedom_category, 
+              `Freedom score 2021` as freedom_score,
+              `Economic Freedom score 2021` as economic_freedom_score,
+              `Political Freedom score 2021` as political_freedom_score,
+              `Legal Freedom score 2021` as legal_freedom_score,
+              `Prosperity rank 2021` as prosperity_rank,
+              `Prosperity category 2021` as prosperity_cateogry,
+              `Prosperity score 2021` as prosperity_score,
+              `Income score 2021` as income_score,
+              `Environment score 2021` as environment_score,
+              `Minority Rights  score 2021` as minority_rights_score,
+              `Health score 2021` as health_score,
+              `Happiness score 2021` as happiness_score
+       FROM free_prosp_full_dataset;
+      ")
+glimpse(free_prosp_data)
+```
+
+No ties in ranking
+
+# Exploratory Visualizations
+
+## Overall Dataset
+```{r}
+## RANK
+# lin_model = lm(freedom_rank ~ prosperity_rank, free_prosp_data)
+# lin_model$coefficients
+# 
+# plot(free_prosp_data$freedom_rank, free_prosp_data$prosperity_rank)
+# # Check normalities, outliers, heteroscedasticity
+# plot(lin_model)
+# 
+# ggplot(data = free_prosp_data) +
+#   geom_point(aes(x = freedom_rank, y = prosperity_rank)) + 
+#   geom_abline()
+# cor(free_prosp_data$freedom_rank, free_prosp_data$prosperity_rank)
+
+## SCORES
+### Apply log transformation to satisfy normality assumptions
+model_data <- free_prosp_data %>%
+  select(freedom_score, prosperity_score) %>%
+  mutate(log_prosperity = log(prosperity_score))
+lin_model = lm(freedom_score ~ log_prosperity, model_data)
+
+## Check normalities, outliers, heteroscedasticity
+# plot(model_data$freedom_score, model_data$log_prosperity)
+# plot(lin_model)
+summary(lin_model)
+
+ggplot(data = model_data, aes(x = (freedom_score), y = log_prosperity)) +
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE)
+
+```
+
+
+## Economic
 
 ```{r}
-test
+econ_subs_dataset <- free_prosp_data %>%
+  select(region, economic_freedom_score, political_freedom_score, legal_freedom_score)
+ggpairs(data=econ_subs_dataset,1, mapping=aes(color=region))
+ggpairs(data=econ_subs_dataset,2:4, mapping=aes(color=region))
+
 ```
+
+## Political
+
+```{r, warning = FALSE}
+polit_subs_dataset <- free_prosp_data %>%
+  select(region, legal_freedom_score, prosperity_score, income_score, environment_score, minority_rights_score, health_score,happiness_score)
+# ggpairs(data=polit_subs_dataset, mapping=aes(color=region))
+ggpairs(data=polit_subs_dataset,2:4, mapping=aes(color=region))
+ggpairs(data=polit_subs_dataset,5:8, mapping=aes(color=region))
+```
+
+
+
+
+
+
+
+
