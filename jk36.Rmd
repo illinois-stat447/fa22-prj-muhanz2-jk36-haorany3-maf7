@@ -5,13 +5,17 @@ date: '2022-11-25'
 output: html_document
 ---
 
-```{r, echo=FALSE, results='hide', message=FALSE}
+```{r results='hide', message=FALSE}
 library(dplyr)
 library(tidyverse)
 library(readxl)
 library(sqldf)
 library(ggplot2)
 library(GGally)
+library(reshape2)
+library(MASS)
+library(mclust)
+
 ```
 # Import Data
 ```{r}
@@ -60,7 +64,7 @@ No ties in ranking
 ## SCORES
 ### Apply log transformation to satisfy normality assumptions
 model_data <- free_prosp_data %>%
-  select(freedom_score, prosperity_score) %>%
+  dplyr::select(region, freedom_score, prosperity_score) %>%
   mutate(log_prosperity = log(prosperity_score))
 lin_model = lm(freedom_score ~ log_prosperity, model_data)
 
@@ -70,31 +74,82 @@ lin_model = lm(freedom_score ~ log_prosperity, model_data)
 summary(lin_model)
 
 ggplot(data = model_data, aes(x = (freedom_score), y = log_prosperity)) +
-  geom_point() + 
-  geom_smooth(method = "lm", se = FALSE)
+  geom_point(aes(color = region)) + 
+  geom_smooth(method = "lm", se = FALSE) + 
+  labs(title = "Freedom Score v Log Prosperity Score") + 
+  xlab("Freedom Score") +
+  ylab("Log Prosperity Score")
 
+
+```
+
+Multiple R-squared:  0.6353
+
+```{r}
+table(free_prosp_data$prosperity_cateogry, free_prosp_data$freedom_category)
+
+prosp_counts = free_prosp_data %>% dplyr::select(prosperity_cateogry) %>% group_by(prosperity_cateogry) %>% count()
+order = c("Mostly Prosperous", "Prosperous", "Unprosperous", "Mostly Unprosperous")
+prosp_counts <- prosp_counts %>%
+  mutate(prosperity_cateogry = factor(prosperity_cateogry, levels = order)) %>%
+  arrange(prosperity_cateogry)
+
+ggplot(prosp_counts) +
+  geom_col(aes(x = prosperity_cateogry, y = n))
+
+freedom_counts = free_prosp_data %>% dplyr::select(freedom_category) %>% group_by(freedom_category) %>% count()
+order = c("Mostly Free", "Free", "Unfree", "Mostly Unfree")
+freedom_counts <- freedom_counts %>%
+  mutate(freedom_category = factor(freedom_category, levels = order)) %>%
+  arrange(freedom_category)
+
+ggplot(freedom_counts) +
+  geom_col(aes(x = freedom_category, y = n))
+```
+
+Results show that there is a possibility we can cluster into 2 groups by comparing the scores.  
+We will proceed with an unsupervised learning method:
+
+### Cluster the groups by using Mixture of Multivariate Gaussian Model 
+
+```{r}
+ggplot(free_prosp_data) +
+  geom_density(aes(x = freedom_score), color="Red") + 
+  geom_density(aes(x = prosperity_score), color="Blue") +
+  xlab("Score")
+
+# gauss_data <- free_prosp_data %>% select(freedom_score, prosperity_score)
+# plot(mclustBIC(model_data[c(2,3)]))
+gaussian_mix_model = densityMclust(data=model_data[c(2,3)], G=2)
+summary(gaussian_mix_model)
+plot(gaussian_mix_model, what = "density", type = "hdr", data = model_data[c(2,3)], points.cex = 0.5)
 ```
 
 
 ## Economic
-
+### Overall
 ```{r}
 econ_subs_dataset <- free_prosp_data %>%
-  select(region, economic_freedom_score, political_freedom_score, legal_freedom_score)
+  dplyr::select(region, economic_freedom_score, political_freedom_score, legal_freedom_score)
 ggpairs(data=econ_subs_dataset,1, mapping=aes(color=region))
 ggpairs(data=econ_subs_dataset,2:4, mapping=aes(color=region))
 
+
 ```
+
+
 
 ## Political
 
 ```{r, warning = FALSE}
 polit_subs_dataset <- free_prosp_data %>%
-  select(region, legal_freedom_score, prosperity_score, income_score, environment_score, minority_rights_score, health_score,happiness_score)
+  dplyr::select(region, legal_freedom_score, prosperity_score, income_score, environment_score, minority_rights_score, health_score,happiness_score)
 # ggpairs(data=polit_subs_dataset, mapping=aes(color=region))
 ggpairs(data=polit_subs_dataset,2:4, mapping=aes(color=region))
 ggpairs(data=polit_subs_dataset,5:8, mapping=aes(color=region))
+
 ```
+
 
 
 
