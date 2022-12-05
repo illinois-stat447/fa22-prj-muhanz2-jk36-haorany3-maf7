@@ -1,0 +1,140 @@
+---
+title: "Freedom and Prosperity Research Project"
+author: "Jonathan Kang"
+date: '2022-12-05'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Introduction
+
+TODO: Add your names in *author* above. If you would like to add images/plots, upload the images to github then use the image link to import to this rmarkdown file. Knit to generate the presentation.
+
+**NOTE**: PLEASE REMEMBER TO **FETCH/PULL BEFORE COMMIT**. This will help reducing the number of possible merging errors as the presentation is a single file
+
+
+
+
+
+## Exploratory Analysis - Descriptive Statistics
+
+Here are some basic numerical analysis from the dataset:
+
+- Feel free to use bullet form, but table form may have better presentation.
+- Bullet 2
+- Bullet 3
+
+
+
+
+
+## Exploratory Analysis - Correlations 
+
+We will investigate the correlations between the main categories of Freedom and Prosperity against their subcategories. Next, we will dive into the specific factors of Freedom and obtain the factors that have are highly correlated with the subcategories of Freedom.
+
+## Freedom and its Main Categories
+
+![Freedom Correlations](https://github.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/blob/main/img/freedom_scores.png?raw=true){width=100%}
+
+## Prosperity and its Main Cateogries
+
+![Prosperity Correlations](https://github.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/blob/main/img/prosperity_scores.png?raw=true){width=100%}
+
+## Freedom Subcategory (1)
+
+![Political Freedom](https://github.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/blob/main/img/political_freedom.png?raw=true){width=80%}
+
+## Freedom Subcategory (2)
+
+![Legal Freedom](https://github.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/blob/main/img/legal_freedom.png?raw=true){width=100%}
+
+## Freedom Subcategory (3)
+
+![Economic Freedom](https://github.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/blob/main/img/economic_freedom.png?raw=true){width=80%}
+
+
+
+
+
+
+
+## Statistical Learning Methods
+
+For the following slides, we will be looking at various statistical models that will help with this data analysis project.
+
+## Linear Regression - General Scores
+
+![Linear Regression](https://github.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/blob/main/img/freedomvprosperity.png?raw=true){width=60%}
+
+From this plot we can infer that there seems to be an upward curve resembling an exponential relationship. As there seems to be two large clusters, we will attempt to cluster the groups using Gaussian Mixture Model method.
+
+## Gaussian Mixture Model Clustering
+
+![Gaussian Mixture Model](https://github.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/blob/main/img/gaussian_clusters.png?raw=true){width=60%}
+
+We can see from the clusters above that there are two clustered groups between the free and prosporous countries against the unfree and unprosperous countries.
+
+
+
+
+
+## Statistical Learning with Trees
+
+We will use supervised learning methods to ...
+
+## Decision Tree
+
+...
+
+## Random Forest
+
+...
+
+## Neural Network
+
+...
+
+
+
+
+
+
+
+## Time Series Data Analysis with Raw Data
+
+Understanding what variables are important according the correlations of the normalized scores, we will check the current situation of some countries and investigate if the raw data aligns with our findings from the scored dataset.
+
+## Country A
+
+...
+
+## Country B
+
+...
+
+
+
+
+
+
+
+## Conclusion
+
+To summarize, we have learned that ...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
