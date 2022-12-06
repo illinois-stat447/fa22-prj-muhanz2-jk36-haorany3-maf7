@@ -1,8 +1,10 @@
 ---
 title: "Freedom and Prosperity Research Project"
-author: "Jonathan Kang"
-date: '2022-12-05'
-output: html_document
+author: "Jonathan Kang, Muhan Zhang, Henry Yin"
+date: "2022-12-05"
+output:
+  html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -18,24 +20,32 @@ TODO: Add your names in *author* above. If you would like to add images/plots, u
 
 
 
-
 ## Exploratory Analysis - Descriptive Statistics
 
-Here are some basic numerical analysis from the dataset:
+Here are metadata of "freedom and propserity index" dataset:
 
-- Feel free to use bullet form, but table form may have better presentation.
-- Bullet 2
-- Bullet 3
+- Number of countries: 174
+- Number of regions: 6
+- Region classification: Asia Pacific, Middle Eastern Asia, America, Western Europe, Europe and Central Asia, Sub Saharan Africa
+- Years recorded: 2006, 2011, 2016, 2021
+- Freedom categories: Economic, Political, Legal
+- Number of economic subcategories: 4
+- Number of political subcategories: 3
+- Number of legal subcategories:10 (this is different from the pie chart given by Atlantic Council)
+- Number of prosperity categories: 5
 
-
-
-
+In addition, we also calculate the basic statistics of each variables based on its categories. The following is our result. 
+![Statistic Correlation](img/economic_statistics.png){width=100%}
+![Statistic Correlation](img/legal_statistics.png){width=100%}
+![Statistic Correlation](img/political_statistics.png){width=100%}
+![Statistic Correlation](img/prosperity_statistics.png){width=100%}
 
 ## Exploratory Analysis - Correlations 
 
 We will investigate the correlations between the main categories of Freedom and Prosperity against their subcategories. Next, we will dive into the specific factors of Freedom and obtain the factors that have are highly correlated with the subcategories of Freedom.
 
 ## Freedom and its Main Categories
+
 
 ![Freedom Correlations](https://github.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/blob/main/img/freedom_scores.png?raw=true){width=100%}
 
@@ -77,13 +87,27 @@ From this plot we can infer that there seems to be an upward curve resembling an
 
 We can see from the clusters above that there are two clustered groups between the free and prosporous countries against the unfree and unprosperous countries.
 
+![DProsperity Score Distribution](muhan1){width=80%}
+
 
 
 
 
 ## Statistical Learning with Trees
 
-We will use supervised learning methods to ...
+We use several supervised learning methods to build prediction models for prosperity scores based on all the freedom subcategories, and compare their performances. 
+
+## Data Processing and prediction settings 
+Our data source is from the Atlantic Council. For every country starting from 2006 and in every 5 years, the Atlantic give it a score for every freedom subcategories and prosperity. Using these scores, we form the training and testing data set. Since the algorithmic models we intend to use are designed for predicting discrete values, we have to classify the propserity socres into resonable partitions.In achieving this, the following basic statistical inferneces are made:
+
+| mean | median | maximum | minimum | standard deviation| 
+| :----: | :----: | :----: | :----: | :----: |
+| 48.38 | 50.57 | 98.63 | 15.47 | 19.05 |
+
+The following is the visualization of distribution of prosperity scores amongst all data. 
+
+
+
 
 ## Decision Tree
 
@@ -92,6 +116,8 @@ We will use supervised learning methods to ...
 ## Random Forest
 
 ...
+
+## 
 
 ## Neural Network
 
