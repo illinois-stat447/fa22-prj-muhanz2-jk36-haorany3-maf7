@@ -1,7 +1,7 @@
 ---
 title: "Freedom and Prosperity Research Project"
-author: "Jonathan Kang, Muhan Zhang, Henry Yin"
-date: "2022-12-05"
+author: "Jonathan Kang, Muhan Zhang, Henry Yin, Matthew Feinberg"
+date: "December 8th, 2022"
 output:
   html_document: default
   pdf_document: default
@@ -22,23 +22,150 @@ TODO: Add your names in *author* above. If you would like to add images/plots, u
 
 ## Exploratory Analysis - Descriptive Statistics
 
-Here are metadata of "freedom and propserity index" dataset:
+### Overview
 
-- Number of countries: 174
-- Number of regions: 6
-- Region classification: Asia Pacific, Middle Eastern Asia, America, Western Europe, Europe and Central Asia, Sub Saharan Africa
-- Years recorded: 2006, 2011, 2016, 2021
-- Freedom categories: Economic, Political, Legal
-- Number of economic subcategories: 4
-- Number of political subcategories: 3
-- Number of legal subcategories:10 (this is different from the pie chart given by Atlantic Council)
-- Number of prosperity categories: 5
+Our project is based around analysis of the Freedom and Prosperity dataset from the Atlantic Council Freedom and Prosperity Center. This dataset has detailed data on 174 countries of the world, split into 6 geographical regions. The regions, along with their abbreviations, are listed below. We will be using these abbreviations throughout our project reports.
 
-In addition, we also calculate the basic statistics of each variables based on its categories. The following is our result. 
-![Statistic Correlation](img/economic_statistics.png){width=100%}
-![Statistic Correlation](img/legal_statistics.png){width=100%}
-![Statistic Correlation](img/political_statistics.png){width=100%}
-![Statistic Correlation](img/prosperity_statistics.png){width=100%}
+- America: **AME** (32 countries)
+- Asia Pacific: **AP** (28 countries)
+- Europe and Central Asia: **ECA** (18 countries)
+- Middle Eastern Asia: **MENA** (18 countries)
+- Sub Saharan Africa: **SSA** (47 countries)
+- Western Europe: **WE/EU** (31 countries)
+
+All data points in our dataset were recorded multiple times over a 15 year period - during 2006, 2011, 2016, and 2021.
+
+The data covers freedom and prosperity, with detailed categories for each to give further insight into specifics of each country's freedom and prosperity conditions. The freedom data is split into three categories:
+
+- **Economic Freedom** (4 additional subcategories)
+- **Political Freedom** (3 additional subcategories)
+- **Legal Freedom** (10 additional subcategories)
+
+The prosperity data is split into five categories:
+
+- **Income**
+- **Environment**
+- **Minority Rights**
+- **Health**
+- **Happiness**
+
+Values for the overall categories were calculated by taking the average of all individual subcategory values.
+
+### Initial Analysis
+
+We start by analyzing the overall scores for freedom and prosperity. Descriptive statistics for each variable is shown in the table below:
+
+![](img/maf7/initialdescriptive.png){width=100%}
+
+Here is a graph displaying scores for each country, colored by region. This coloring will stay consistent throughout the initial descriptive data analysis.
+
+![](img/maf7/overallscores.png){width=100%}
+
+### Freedom Score Analysis
+
+We can analyze the freedom scores for each specific region. Descriptive statistics for freedom score grouped by country region is shown in the table below:
+
+![](img/maf7/freedomdescriptive.png){width=100%}
+
+We can also use a box plot to visually see the freedom scores grouped by region.
+
+![](img/maf7/freedomscores.png){width=100%}
+
+Our dataset has an additional categorical variable for freedom scores. The categorical variable is assigned as follows:
+
+- **Unfree (UF)**: freedom score from 0 to 25
+- **Mostly Unfree (MUF)**: freedom score from 25 to 50
+- **Mostly Free (MF)**: freedom score from 50 to 75
+- **Free (F)**: freedom score from 75 to 100
+
+We can use this categorical variable to generate an additional visualization for country freedom. These bar plots are shown below.
+
+![](img/maf7/freedomcategorical.png){width=100%}
+
+
+### Freedom Category Score Analysis
+
+We can now look into the three categories for the freedom score (as a reminder, these three category scores are averaged to generate the overall freedom score for each country.) Below are the descriptive statistics and the accompanying box plots for each freedom category.
+
+#### Economic Freedom Scores Descriptive Statistics
+
+![](img/maf7/economicdescriptive.png){width=100%}
+
+![](img/maf7/economicscores.png){width=100%}
+
+#### Political Freedom Scores Descriptive Statistics
+
+![](img/maf7/politicaldescriptive.png){width=100%}
+
+![](img/maf7/politicalscores.png){width=100%}
+
+#### Legal Freedom Scores Descriptive Statistics
+
+![](img/maf7/legaldescriptive.png){width=100%}
+
+![](img/maf7/legalscores.png){width=100%}
+
+The subcategories for each freedom category will be investigated later in the project.
+
+
+### Prosperity Score Analysis
+
+Similarly to what we have just done for the freedom scores, we can analyze the prosperity scores by region. Descriptive stats for the prosperity score grouped by region are shown below.
+
+![](img/maf7/prosperitydescriptive.png){width=100%}
+
+We can also use a box plot to visually see the prosperity scores grouped by region.
+
+![](img/maf7/prosperityscores.png){width=100%}
+
+Similarly to the freedom scores, our dataset has an additional categorical variable for prosperity scores. The categorical variable is assigned as follows:
+
+- **Unprosperous (UP)**: prosperity score from 0 to 25
+- **Mostly Unprosperous (MUP)**: prosperity score from 25 to 50
+- **Mostly Prosperous (MP)**: prosperity score from 50 to 75
+- **Prosperous (P)**: prosperity score from 75 to 100
+
+We can use this categorical variable to generate an additional visualization for country prosperity. These bar plots are shown below.
+
+![](img/maf7/prosperitycategorical.png){width=100%}
+
+### Prosperity Category Score Analysis
+
+We can now look into the five categories for the prosperity score (as a reminder, these five category scores are averaged to generate the overall prosperity score for each country.) Below are the descriptive statistics and the accompanying box plots for each prosperity category.
+
+#### Income Scores Descriptive Statistics
+
+![](img/maf7/incomedescriptive.png){width=100%}
+
+![](img/maf7/incomescores.png){width=100%}
+
+#### Environment Scores Descriptive Statistics
+
+![](img/maf7/environmentdescriptive.png){width=100%}
+
+![](img/maf7/environmentscores.png){width=100%}
+
+#### Minority Rights Scores Descriptive Statistics
+
+*Note: there are 6 N/A values for Minority Rights prosperity scores in the dataset. These countries were ignored during the below analysis.*
+
+![](img/maf7/minoritydescriptive.png){width=100%}
+
+![](img/maf7/minorityscores.png){width=100%}
+
+#### Health Scores Descriptive Statistics
+
+![](img/maf7/healthdescriptive.png){width=100%}
+
+![](img/maf7/healthscores.png){width=100%}
+
+#### Happiness Scores Descriptive Statistics
+
+*Note: there are 18 N/A values for Happiness prosperity scores in the dataset. These countries were ignored during the below analysis.*
+
+![](img/maf7/happinessdescriptive.png){width=100%}
+
+![](img/maf7/happinessscores.png){width=100%}
 
 ## Exploratory Analysis - Correlations 
 
