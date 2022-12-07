@@ -229,7 +229,7 @@ Our data source is from the Atlantic Council. For every country beginning from 2
 
 
 The following is the visualization of distribution of prosperity scores amongst all data. 
-![](img/muhan/prosperity_score_distribution.png){width=50%}
+![](https://github.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/blob/main/img/muhan/prosperity_score_distribution.png){width=50%}
 
 
 
@@ -248,14 +248,14 @@ Next, we delete all rows where there exists at least one null values. In separat
 ## Decision Tree
 Our initial decision tree model yields a 100% accuracy on training data and 82.65% accuracy on testing data. In avoiding over fitting, we then conduct post pruning. Our method is to continuously delete the node with the lowest impurity (least able to classify data) until the test data accuracy is maximized. The lowest impurity is manifested by "effective alpha". The following graph shows the accuracy with every node we prune (the x axis is the lowest effective alpha of ever tree). 
 
-![](img/muhan/pruning_accuracy.png){width=50%}
+![](img/muhan/pruning_accuracy.png](https://github.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/blob/main/img/muhan/pruning_accuracy.png?raw=true){width=50%}
 
 
 While training accuracy decreases monotonically with nodes being removed, testing accuracy increases to a pinnacle, and then decreases monotonically. This is performing as expected since as the nodes are being removed, the problem of over fitting is being addressed, and as it starts to decrease, the model becomes to under fitting. In light of this observation, we pick the pinnacle of testing accuracy to be our final decision tree model. We reach a 85.71% accuracy for testing data and 95.94% accuracy for training data. 
 
 In addition, the simplicity of decision tree model also allows us to open the "black box" of the model itself. The following is the visualization of our post pruning model.  
 
-![Decision tree visualization](img/muhan/decision_tree.png){width=80%}
+![Decision tree visualization](img/muhan/pruning_accuracy.png](https://github.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/blob/main/img/muhan/decision_tree.png){width=80%}
 
 
 
