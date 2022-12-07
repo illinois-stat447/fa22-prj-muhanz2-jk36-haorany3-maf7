@@ -33,7 +33,7 @@ Our project is based around analysis of the Freedom and Prosperity dataset from 
 - Sub Saharan Africa: **SSA** (47 countries)
 - Western Europe: **WE/EU** (31 countries)
 
-All data points in our dataset were recorded multiple times over a 15 year period - during 2006, 2011, 2016, and 2021.
+All data points in our dataset were recorded multiple times over a 15 year period - during 2006, 2011, 2016, and 2021. This initial summary will cover the data points from 2021.
 
 The data covers freedom and prosperity, with detailed categories for each to give further insight into specifics of each country's freedom and prosperity conditions. The freedom data is split into three categories:
 
@@ -53,119 +53,65 @@ Values for the overall categories were calculated by taking the average of all i
 
 ### Initial Analysis
 
-We start by analyzing the overall scores for freedom and prosperity. Descriptive statistics for each variable is shown in the table below:
+We start by analyzing the overall scores for freedom and prosperity. Here is a graph displaying reedom and prosperity scores for each country, colored by region. This coloring will stay consistent throughout the initial descriptive data analysis.
 
-![](img/maf7/initialdescriptive.png){width=100%}
+![](https://raw.githubusercontent.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/main/img/maf7/overallscores.png){width=75%}
 
-Here is a graph displaying scores for each country, colored by region. This coloring will stay consistent throughout the initial descriptive data analysis.
+Both freedom and prosperity scores are scaled to values between 0 and 100 inclusive. Here are some basic statistics for both scores (rounded to two decimal places):
 
-![](img/maf7/overallscores.png){width=100%}
+**Freedom Score**
+
+- Mean: 56.69
+- Standard Deviaton: 19.94
+- Minimum: 11.61
+- Maximum: 92.45
+
+**Prosperity Score**
+
+- Mean: 51.24
+- Standard Deviation: 18.77
+- Minimum: 15.96
+- Maximum: 97.13
+
 
 ### Freedom Score Analysis
 
-We can analyze the freedom scores for each specific region. Descriptive statistics for freedom score grouped by country region is shown in the table below:
+We can analyze the freedom scores for each specific region. We can use a box plot to visually see the freedom scores grouped by region.
 
-![](img/maf7/freedomdescriptive.png){width=100%}
-
-We can also use a box plot to visually see the freedom scores grouped by region.
-
-![](img/maf7/freedomscores.png){width=100%}
+![](https://raw.githubusercontent.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/main/img/maf7/freedomscores.png){width=75%}
 
 Our dataset has an additional categorical variable for freedom scores. The categorical variable is assigned as follows:
 
-- **Unfree (UF)**: freedom score from 0 to 25
-- **Mostly Unfree (MUF)**: freedom score from 25 to 50
-- **Mostly Free (MF)**: freedom score from 50 to 75
-- **Free (F)**: freedom score from 75 to 100
+- **Unfree (UF)**: freedom score from 0 to 25 (11 countries)
+- **Mostly Unfree (MUF)**: freedom score from 25 to 50 (55 countries)
+- **Mostly Free (MF)**: freedom score from 50 to 75 (67 countries)
+- **Free (F)**: freedom score from 75 to 100 (41 countries)
 
 We can use this categorical variable to generate an additional visualization for country freedom. These bar plots are shown below.
 
-![](img/maf7/freedomcategorical.png){width=100%}
+![](https://raw.githubusercontent.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/main/img/maf7/freedomcategorical.png){width=75%}
 
-
-### Freedom Category Score Analysis
-
-We can now look into the three categories for the freedom score (as a reminder, these three category scores are averaged to generate the overall freedom score for each country.) Below are the descriptive statistics and the accompanying box plots for each freedom category.
-
-#### Economic Freedom Scores Descriptive Statistics
-
-![](img/maf7/economicdescriptive.png){width=100%}
-
-![](img/maf7/economicscores.png){width=100%}
-
-#### Political Freedom Scores Descriptive Statistics
-
-![](img/maf7/politicaldescriptive.png){width=100%}
-
-![](img/maf7/politicalscores.png){width=100%}
-
-#### Legal Freedom Scores Descriptive Statistics
-
-![](img/maf7/legaldescriptive.png){width=100%}
-
-![](img/maf7/legalscores.png){width=100%}
-
-The subcategories for each freedom category will be investigated later in the project.
-
+From these two plots, we can see that the average freedom score is much higher for Western European countries compared to every other region. There are also 28 Western European countries that are Free out of a total of 41 Free countries. 
 
 ### Prosperity Score Analysis
 
-Similarly to what we have just done for the freedom scores, we can analyze the prosperity scores by region. Descriptive stats for the prosperity score grouped by region are shown below.
+Similarly to what we have just done for the freedom scores, we can analyze the prosperity scores by region. We can use a box plot to visually see the prosperity scores grouped by region.
 
-![](img/maf7/prosperitydescriptive.png){width=100%}
-
-We can also use a box plot to visually see the prosperity scores grouped by region.
-
-![](img/maf7/prosperityscores.png){width=100%}
+![](https://raw.githubusercontent.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/main/img/maf7/prosperityscores.png){width=75%}
 
 Similarly to the freedom scores, our dataset has an additional categorical variable for prosperity scores. The categorical variable is assigned as follows:
 
-- **Unprosperous (UP)**: prosperity score from 0 to 25
-- **Mostly Unprosperous (MUP)**: prosperity score from 25 to 50
-- **Mostly Prosperous (MP)**: prosperity score from 50 to 75
-- **Prosperous (P)**: prosperity score from 75 to 100
+- **Unprosperous (UP)**: prosperity score from 0 to 25 (5 countries)
+- **Mostly Unprosperous (MUP)**: prosperity score from 25 to 50 (87 countries)
+- **Mostly Prosperous (MP)**: prosperity score from 50 to 75 (57 countries)
+- **Prosperous (P)**: prosperity score from 75 to 100 (25 countries)
 
 We can use this categorical variable to generate an additional visualization for country prosperity. These bar plots are shown below.
 
-![](img/maf7/prosperitycategorical.png){width=100%}
+![](https://raw.githubusercontent.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/main/img/maf7/prosperitycategorical.png){width=75%}
 
-### Prosperity Category Score Analysis
+Once again, Western European countries have a higher average prosperity score than the other regions. Western European countries also account for 17 of the 25 Prosperous countries.
 
-We can now look into the five categories for the prosperity score (as a reminder, these five category scores are averaged to generate the overall prosperity score for each country.) Below are the descriptive statistics and the accompanying box plots for each prosperity category.
-
-#### Income Scores Descriptive Statistics
-
-![](img/maf7/incomedescriptive.png){width=100%}
-
-![](img/maf7/incomescores.png){width=100%}
-
-#### Environment Scores Descriptive Statistics
-
-![](img/maf7/environmentdescriptive.png){width=100%}
-
-![](img/maf7/environmentscores.png){width=100%}
-
-#### Minority Rights Scores Descriptive Statistics
-
-*Note: there are 6 N/A values for Minority Rights prosperity scores in the dataset. These countries were ignored during the below analysis.*
-
-![](img/maf7/minoritydescriptive.png){width=100%}
-
-![](img/maf7/minorityscores.png){width=100%}
-
-#### Health Scores Descriptive Statistics
-
-![](img/maf7/healthdescriptive.png){width=100%}
-
-![](img/maf7/healthscores.png){width=100%}
-
-#### Happiness Scores Descriptive Statistics
-
-*Note: there are 18 N/A values for Happiness prosperity scores in the dataset. These countries were ignored during the below analysis.*
-
-![](img/maf7/happinessdescriptive.png){width=100%}
-
-![](img/maf7/happinessscores.png){width=100%}
 
 ## Exploratory Analysis - Correlations 
 
