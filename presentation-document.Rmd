@@ -24,7 +24,11 @@ TODO: Add your names in *author* above. If you would like to add images/plots, u
 
 ### Overview
 
-Our project is based around analysis of the Freedom and Prosperity dataset from the Atlantic Council Freedom and Prosperity Center. This dataset has detailed data on 174 countries of the world, split into 6 geographical regions. The regions, along with their abbreviations, are listed below. We will be using these abbreviations throughout our project reports.
+Our project is based around analysis of the Freedom and Prosperity dataset from the Atlantic Council Freedom and Prosperity Center. In this project, we will analyze freedom and prosperity scores and their categorical scores in an attempt to predict a country's prosperity score based on its freedom score. We will investigate and generate multiple types of learning models to generate one with the best prediction accuracy possible.
+
+### Dataset Description
+
+This dataset has detailed data on 174 countries of the world, split into 6 geographical regions. The regions, along with their abbreviations, are listed below. We will be using these abbreviations throughout our project reports.
 
 - America: **AME** (32 countries)
 - Asia Pacific: **AP** (28 countries)
