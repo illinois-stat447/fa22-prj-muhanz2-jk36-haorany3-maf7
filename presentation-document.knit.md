@@ -7,9 +7,7 @@ output:
   pdf_document: default
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
-```
+
 
 ## Introduction
 
@@ -255,7 +253,7 @@ While training accuracy decreases monotonically with nodes being removed, testin
 
 In addition, the simplicity of decision tree model also allows us to open the "black box" of the model itself. The following is the visualization of our post pruning model.  
 
-![Decision tree visualization](https://github.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/blob/main/img/muhan/decision_tree.png?raw=true){width=80%}
+![Decision tree visualization](img/muhan/pruning_accuracy.png](https://github.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/blob/main/img/muhan/decision_tree.png){width=80%}
 
 
 
