@@ -21,6 +21,7 @@ library(mclust)
 ```{r}
 free_prosp_full_dataset <- read_excel("Freedom-and-Prosperity-Indexes-Full-Data-Set.xlsx", 
     na = "no data")
+
 free_prosp_data <- sqldf("SELECT Region as region,
               Country as country,
               `Freedom rank 2021` as freedom_rank,
@@ -124,10 +125,13 @@ Results show that there is a possibility we can cluster into 2 groups by compari
 We will proceed with an unsupervised learning method of using Gaussian Mixture Models:
 
 ```{r}
+colors = c("Freedom" = "Red", "Prosperity" = "Blue")
 ggplot(free_prosp_data) +
-  geom_density(aes(x = freedom_score), color="Red") + 
-  geom_density(aes(x = prosperity_score), color="Blue") +
-  xlab("Score")
+  geom_density(aes(x = freedom_score, color="Freedom")) + 
+  geom_density(aes(x = prosperity_score, color="Prosperity")) +
+  xlab("Score") + 
+  labs(title = "Density plot for Prosperity and Freedom Scores", color = "Legend") +
+  scale_color_manual(values = colors)
 
 # gauss_data <- free_prosp_data %>% select(freedom_score, prosperity_score)
 # plot(mclustBIC(model_data[c(2,3)]))
