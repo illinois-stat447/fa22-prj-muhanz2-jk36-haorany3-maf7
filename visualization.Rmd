@@ -371,6 +371,20 @@ ggplot(data=legal_free_time, aes(x = `Legal Freedom score 2021`, y=`Regulatory E
 ```
 
 
+```{r}
+#test
+free_prosp_data %>% filter(country == "Hungary")
+freedom_perc
+freedom_perc %>%
+  filter(Country == "United States of America")
 
+prosperity_perc %>%
+  filter(Country == "United States of America")
+
+freedom_perc %>% dplyr::select(-Country) %>% group_by(Region) %>% summarise(mean_p = mean(abs_percentages), mean_d = mean(difference)) %>%
+  filter(Region == "WE/EU")
+
+
+```
 
 

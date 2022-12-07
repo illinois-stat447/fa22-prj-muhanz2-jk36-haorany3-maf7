@@ -13,18 +13,19 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Introduction
 
-Our project is based around analysis of the Freedom and Prosperity dataset from the Atlantic Council Freedom and Prosperity Center. In this project, we will analyze freedom and prosperity scores and their categorical scores in an attempt to predict a country's prosperity score based on its freedom score. We will investigate and generate multiple types of learning models to generate one with the best prediction accuracy possible. 
+Do countries need freedom to achieve prosperity? Are there any relationships between a country's wealth and the level of freedom a country enables for its citizens? As we are seeing massive spikes of gentrification negatively impacting the economy worldwide, we are interested in investigating the scores provided by the Atlantic Council and the underlying relationships behind the categories and factors.[1]
+With our team consisting of members from different majors, we aim to analyze the socio-economic situation of different countries. This is done by investigating the relationship between freedom and prosperity, then developing regression models to extract the most significant variables in determining a country's level of freedom and prosperity.  
+The purpose of this is to understand the most significant factors of freedom in affecting a country's level of prosperity and what may be the most impactful factors in measuring a country's economic situation and national prosperity.
 
-The source of our dataset comes from the website: "https://www.atlanticcouncil.org/in-depth-research-reports/report/do-countries-need-freedom-to-achieve-prosperity/"
-
-
-
+Our project is based around analysis of the Freedom and Prosperity dataset from the Atlantic Council Freedom and Prosperity Center.  
+In this project, we will bgein by exploring freedom and prosperity scores and their categorical scores. Next, we will investigate and generate multiple types of learning models to generate one with the best prediction accuracy possible. The correlations and statistical learning models will help provide an insight into the most significant variables we should extract and examine from the raw data from World Bank.
 
 
 ## Exploratory Analysis - Descriptive Statistics
 
-
 ### Dataset Description
+
+The source of our dataset comes from the website: "https://www.atlanticcouncil.org/in-depth-research-reports/report/do-countries-need-freedom-to-achieve-prosperity/". [1]
 
 This dataset has detailed data on 174 countries of the world, split into 6 geographical regions. The regions, along with their abbreviations, are listed below. We will be using these abbreviations throughout our project reports.
 
@@ -75,6 +76,9 @@ Both freedom and prosperity scores are scaled to values between 0 and 100 inclus
 - Minimum: 15.96
 - Maximum: 97.13
 
+The following plot shows the distribution of the points:
+
+![](https://github.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/blob/main/img/density_free_prosp.png?raw=true){width=75%}
 
 ### Freedom Score Analysis
 
@@ -184,9 +188,7 @@ Our data source is from the Atlantic Council. For every country beginning from 2
 
 
 The following is the visualization of distribution of prosperity scores amongst all data. 
-![](https://github.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/blob/main/img/muhan/prosperity_score_distribution.png){width=50%}
-
-
+![](https://github.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/blob/main/img/muhan/prosperity_score_distribution.png?raw=true){width=50%}
 
 
 We observe that most countries have prosperity score in between 75 and 25 and a few are below 75. It is important to note that by Atlantic Council's definition, 75 is the threshold for developing countries and developed countries and 50 is the threshold for under developing countries and developing countries. We partition our data accordingly by this standard. We set the label 1, 2, and 3, where 1 stands for under developing countries, 2 stands for developing countries, and 3 stands for developed countries. Combining all the data from 2021, 2016, 2011, and 2006, we find that there are 384 under developing labels, 213, developing labels, and 99 developed labels. 
@@ -230,8 +232,6 @@ Gradient Boosting and Decision Tree performed slightly better than Decision Tree
 
 
 
-
-
 ## Time Series Data Analysis with Raw Data
 
 Understanding what variables are important according the correlations of the normalized scores, we will check the current situation of some countries and investigate if the raw data aligns with our findings from the scored dataset. Countries are chosen based on three criterion, biggest change in freedom/prosperity score, richness in raw data, and representation of the world. Based on these, four countries were chosen: Venezuela, Hungary, European Union, and USA.
@@ -240,31 +240,84 @@ The raw data were fetched from the World Bank using the package WDI. Several ind
 
 ### Venezuela, RB
 
+According to the scores analysis, Venezuela has a massive decrease of freedom score by -17 (-42%) and prosperity by -13.5 (-23.2%) between 2006 and 2021.
+
 ![Venezuela Time Series](https://github.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/blob/main/img/henry-img/Time%20Series%201%20Venezuela.png?raw=true){width=80%}
+
+- The Property Registration procedures used to measure a nation's legal freedom is steadily increasing.  
+- Based on the environment plot, there is a significant downward trend for the level of CO2 emission which is a positive.  
+- The average life expectancy in Venezuela is decreasing since 2010.  
+- There is a lack of information regarding GNI, but the rapid increase in inflation and decrease in unemployment signifies that hyperinflation is most likely present, which is negative for a nation's development.  
+
+In summary, the trends in the income level raw measurements of Venezuela aligns with the freedom index trends and the net change of the health level measurements align with the prosperity trends. Property registry procedures and environmental factors did not possess any significant trends that contradicts with the score index.
 
 ### Hungary
 
+According to the scores analysis, Hungary has a massive decrease of freedom score by -9.6 (-12.6%) but an slight increase in prosperity by 4 (6.5%) between 2006 and 2021.
+
 ![Hungary Time Series](https://github.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/blob/main/img/henry-img/Time%20Series%202%20Hungary.png?raw=true){width=80%}
+
+- Significant decrease in registry property time, which is a positive for a country's level of legal freedom.  
+- Overall decreasing trends in CO2 emissions and water pollution, which is a positive for Hungary's prosperity.  
+- Significant increase in overall life expectancy.  
+- GNI has a significant increase, while unemployment and inflation fluctuates around the national equilibrium. This is an ideal sign of positive economic growth.  
+
+Unlike Venezuela, Hungary's raw data seems to show an overall positive trend in the nation's freedom - economically, politically, and legally. Thus for this case, the data from the scores for freedom does not align with the significant factors trends for Hungary. However, the prosperity index trend aligns with Hungary's environment and health level measurements.
 
 ### European Union
 
+To work with a larger dataset, we have decided to proceed with looking at a regional level, with the first example being the EU. There is an overall increase of 1.8 (3.5%) units of score in freedom and 1.1 (3.9%) unit of prosperity. 
+
 ![EU Time Series](https://github.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/blob/main/img/henry-img/Time%20Series%203%20EU.png?raw=true){width=80%}
 
+- The rapid decline of property registry represents a positive increase in the region's freedom.  
+- The overall decrease in air pollution and CO2 emissions along with the increase in forest areas signifies a positive impact on the region's prosperity.  
+- Overall increasing trend in life expectancy aligns with the positive prosperity change.  
+- The steady increasing trend in income levels and fluctuations is an ideal representation of positive economic growth.
+
+To summarize, every factor shown in the four plots for EU aligns with the overall trend for both freedom and prosperity.
+
 ### USA
+
+The final case study is performed on US. The data from AC shows a slight change of freedom score by -2.3 (-2.8%) units, while 0.32 (0.39%) increase for prosperity. Though there is little change in prosperity, the United States is still worthy for our study due to the abundance of data available.
+
 ![USA Time Series](https://github.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/blob/main/img/henry-img/Time%20Series%204%20US.png?raw=true){width=80%}
 
-Overall, its clear to see that environment, health, and income have been improving over time as a country get freer. The trend essentially echos each other.
+- CO2 emissions are rapidly decreasing.  
+- Though the life expectanc was increasing, there has been a recent massive dip.  
+- Though the nation's GNI is increasing, the unemployment rate and inflation rate is also slightly high.
+
+To summarize, there are several factors in the US that seems to be both positively and negatively affecting the country's level of freedom and prosperity. It is interesting to see how the massive changes in different factors within the US does not seem to have much of an impact regarding the overall status of the country.
+
+
+In conclusion, it is clear to see that environment, health, and income have been improving over time as a country get freer. In general, the trends of the raw data echoes with the trends evaluated by the Atlantic Council's scores.
+
+
+
 
 ## Conclusion
 
-To summarize, we have learned that ...
+To summarize, we have performed exploratory analysis on the dataset provided by the Atlantic Council, generated machine learning models to identify the significant variables in determining a country's freedom and prosperity, and have used these information to examine and analyze the raw data provided by World Bank.  
+
+The overall scores for freedom and prosperity follows a normal distribution, with two evident groups discovered by Gaussian clustering. From the decision tree classification, we have discovered that an effective governmental apparatus in maintaining law and order correlates with a country’s prosperity.
+
+The time series analysis performed for multiple cases generally aligns with our findings and resulting models, but realized that the lack of data provided by the World Bank hinders us from getting a more hollistic analysis.
 
 
 
+## Limitations and Future Work
+
+There are several limitations regarding the this research project and possibilities for other researchers to expand upon:  
+- Investigate scores from past years  
+- Predict the futuristic scores of nations  
+- Instead of using the general correlation, other methods could be used to determine significant variables (e.g. PCA method)
+- Attempt on building a generalized linear model that can give an estimate to a country's freedom score given the raw data 
 
 
-## Citations:
 
+## Works Cited:
+
+[1] Negrea, Dan, and Matthew Kroenic. “Do Countries Need Freedom to Achieve Prosperity?” Atlantic Council, July 7, 2022. https://www.atlanticcouncil.org/in-depth-research-reports/report/do-countries-need-freedom-to-achieve-prosperity/. 
 
 
 
