@@ -160,43 +160,64 @@ From this plot we can infer that there seems to be an upward curve resembling an
 
 We can see from the clusters above that there are two clustered groups between the free and prosporous countries against the unfree and unprosperous countries.
 
-![DProsperity Score Distribution](muhan1){width=80%}
 
 
-
-
-
-## Statistical Learning with Trees
+## Machine Learning Models for porsperity score preiction
 
 We use several supervised learning methods to build prediction models for prosperity scores based on all the freedom subcategories, and compare their performances. 
 
 ## Data Processing and prediction settings 
-Our data source is from the Atlantic Council. For every country starting from 2006 and in every 5 years, the Atlantic give it a score for every freedom subcategories and prosperity. Using these scores, we form the training and testing data set. Since the algorithmic models we intend to use are designed for predicting discrete values, we have to classify the propserity socres into resonable partitions.In achieving this, the following basic statistical inferneces are made:
+Our data source is from the Atlantic Council. For every country beginning from 2006 and in every 5 years, the Atlantic Council give it a score for every freedom subcategories and prosperity. Using these scores, we form the training and testing data set. Since the algorithmic models we intend to use are designed for predicting discrete values, we have to classify the prosperity scores into reasonable partitions.In achieving this, the following basic statistical inferences are made:
 
 | mean | median | maximum | minimum | standard deviation| 
 | :----: | :----: | :----: | :----: | :----: |
 | 48.38 | 50.57 | 98.63 | 15.47 | 19.05 |
 
+
 The following is the visualization of distribution of prosperity scores amongst all data. 
+![](https://github.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/blob/main/img/muhan/prosperity_score_distribution.png){width=50%}
 
 
 
+
+We observe that most countries have prosperity score in between 75 and 25 and a few are below 75. It is important to note that by Atlantic Council's definition, 75 is the threshold for developing countries and developed countries and 50 is the threshold for under developing countries and developing countries. We partition our data accordingly by this standard. We set the label 1, 2, and 3, where 1 stands for under developing countries, 2 stands for developing countries, and 3 stands for developed countries. Combining all the data from 2021, 2016, 2011, and 2006, we find that there are 384 under developing labels, 213, developing labels, and 99 developed labels. 
+
+| labels | meaning | threshold | size | 
+| :----: | :----: | :----: | :----: |
+| 1 | under developing countries | score <= 50 | 384 |
+| 2 | developing countries | score <= 75 and score > 50| 213 |
+| 3 | developed countries| score > 75| 99 |
+
+
+Next, we delete all rows where there exists at least one null values. In separating training data and testing data, we use the default 0.8 value, whereby 80% of the data are for training and 20% of the data are for testing. After this process, we find that we have 395 data set for training and 98 for testing. It is also worth while to state that we have 17 features. 
 
 ## Decision Tree
+Our initial decision tree model yields a 100% accuracy on training data and 82.65% accuracy on testing data. In avoiding over fitting, we then conduct post pruning. Our method is to continuously delete the node with the lowest impurity (least able to classify data) until the test data accuracy is maximized. The lowest impurity is manifested by "effective alpha". The following graph shows the accuracy with every node we prune (the x axis is the lowest effective alpha of ever tree). 
 
-...
-
-## Random Forest
-
-...
-
-## 
-
-## Neural Network
-
-...
+![](https://github.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/blob/main/img/muhan/pruning_accuracy.png?raw=true){width=50%}
 
 
+While training accuracy decreases monotonically with nodes being removed, testing accuracy increases to a pinnacle, and then decreases monotonically. This is performing as expected since as the nodes are being removed, the problem of over fitting is being addressed, and as it starts to decrease, the model becomes to under fitting. In light of this observation, we pick the pinnacle of testing accuracy to be our final decision tree model. We reach a 85.71% accuracy for testing data and 95.94% accuracy for training data. 
+
+In addition, the simplicity of decision tree model also allows us to open the "black box" of the model itself. The following is the visualization of our post pruning model.  
+
+![Decision tree visualization](https://github.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/blob/main/img/muhan/decision_tree.png?raw=true){width=80%}
+
+
+
+Such visualization allows us to obtain the nodes with highest impurity. It implies that the nodes are amongst the strongest in separating labels, and hence, they are the most determining factors in implicating prosperity. From descending importance, these variables are: "State capacity", "Absence of Corruption", "Government integrity", and "Efficient judiciary". In light of this finding, we state that an effective governmental apparatus in maintaining law and order correlates with a country's prosperity. 
+
+## Other attempts 
+Although we reached a decent accuracy based on random forest, it would be beneficial if we test the performance of other major models. We also attempted random forest, gradient boosting, and neural network. For random forest, we obtain the optimal results after 300 iterations, and for gradient boosting, it is 100 iterations. For neural network, we setup 1 hidden layer and 50 training epochs. The following is the performance of all our models. 
+
+| Model | training data accuracy | testing data accuracy | training data F1 score | testing data F1 score | 
+| :----: | :----: | :----: | :----: | :----: |
+| Decision tree | 0.960 | 0.857 | 0.960 | 0.859 |
+| Random Forest | 1.000 | 0.867 | 1.000 | 0.864 |
+| Gradient Boosting | 1.000 | 0.878 | 1.000 | 0.876 |
+| Neural Network | 0.486 | 0.480 | 0.654 | 0.648 |
+
+Gradient Boosting and Decision Tree performed slightly better than Decision Tree, while Neural Network's performance is catastrophic, this is possibly due to lack of training data, and preponderance of features. Simple model such as decision tree almost performed as well as Random Forest and Gradient Tree. 
 
 
 
