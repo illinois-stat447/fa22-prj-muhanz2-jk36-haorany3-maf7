@@ -24,6 +24,8 @@ Our general plan is to look at how categories of freedom and prosperity is corre
 #### Peer Review
 + [file](https://github.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/blob/main/Peer%20Review.pdf)
 
+Note: only part of our code is displayed in our final report for demonstration purposes as the original codes are too long.
+
 # Data Source
 #### Atlantic Council Freedom and Prosperity Center
 + https://www.atlanticcouncil.org/in-depth-research-reports/report/do-countries-need-freedom-to-achieve-prosperity/#data
