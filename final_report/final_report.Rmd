@@ -23,20 +23,34 @@ The purpose of this is to understand the most significant factors of freedom in 
 Our project is based around analysis of the Freedom and Prosperity data set from the Atlantic Council Freedom and Prosperity Center.  
 In this project, we will begin by exploring freedom and prosperity scores and their categorical scores. Next, we will investigate and generate multiple types of learning models to generate one with the best prediction accuracy possible. The correlations and statistical learning models will help provide an insight into the most significant variables we should extract and examine from the raw data from World Bank.
 
-## Project outline 
+## Project Outline 
+
 1. Conducting basic statistical inferences. 
 2. Conducting exploratory analysis through data visualization and regression models.
 3. Using machine learning models to build prediction model for prosperity score prediction.
 4. Further analysis through case studies and trend analysis. 
 
-## Libraries
+### Libraries
 ```
 library("readxl")
+library(dplyr)
+library(tidyverse)
+library(sqldf)
+library(ggplot2)
+library(GGally)
+library(reshape2)
+library(MASS)
+library(mclust)
+
 ```
 
 ## Data Processing 
 
-## Data description
+There are two main sources we will be obtaining our datasets from.  
+
+The first dataset comes from Atlantic Council Freedom and Prosperity Center. This dataset is provided in Excel spreadsheet format with over 20 sheets of data to load. By using readxl library package, we are able to load the data from multiple sheets into the R program. 
+
+### Data Description
 
 The source of our dataset comes from the website: "https://www.atlanticcouncil.org/in-depth-research-reports/report/do-countries-need-freedom-to-achieve-prosperity/". [1]
 
@@ -67,9 +81,9 @@ The prosperity data is split into five categories:
 
 Values for the overall categories were calculated by taking the average of all individual subcategory values.
 
-### Initial Analysis
+## Initial Analysis
 
-We start by analyzing the overall scores for freedom and prosperity. Here is a graph displaying reedom and prosperity scores for each country, colored by region. This coloring will stay consistent throughout the initial descriptive data analysis.
+We start by analyzing the overall scores for freedom and prosperity. Here is a graph displaying freedom and prosperity scores for each country, colored by region. This coloring will stay consistent throughout the initial descriptive data analysis.
 
 ![](https://raw.githubusercontent.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/main/img/maf7/overallscores.png){width=75%}
 
@@ -155,7 +169,133 @@ heatmap(matrix_, Colv = NA, Rowv = NA, scale = "none", cexRow=0.5, cexCol = 0.4,
 ![](https://github.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/blob/main/img/muhan/CorrelationMatrix2021.png?raw=true){width=50%}
 
 
-## Machine Learning Models for porsperity score prediction
+To get a better understanding of the relationships between each variable for each subcategory, we will look into the correlations.
+
+
+### Correlations and Pairs Plot
+
+Now, we will investigate the correlations between the main categories of Freedom and Prosperity and their subcategories. To do so, we will dive into the specific factors of Freedom and obtain highly correlated variables for later trend analysis.
+
+The following is a sample chunk of code used to look at the correlations for various correlations:
+
+```
+# Economic Freedom Scores
+economic_freedom_scores <- read_excel("Freedom-and-Prosperity-Indexes-Full-Data-Set.xlsx", 
+    na = "no data")[c(1,3,7)]
+# Property Rights
+prop_rights_full <- read_excel("Freedom-and-Prosperity-Indexes-Full-Data-Set.xlsx", 
+  sheet = "Property Rights time")
+prop_rights <- prop_rights_full[c(1,4)]
+# Trade Freedom
+trade_free_full <- read_excel("Freedom-and-Prosperity-Indexes-Full-Data-Set.xlsx", 
+  sheet = "Trade Freedom time")
+trade_free <- trade_free_full[c(1,4)]
+# Invesetment Freedom
+invest_free_full <- read_excel("Freedom-and-Prosperity-Indexes-Full-Data-Set.xlsx", 
+  sheet = "Investment Freedom time")
+invest_free <- invest_free_full[c(1,4)]
+# Women's Economic Freedom
+women_econ_full <- read_excel("Freedom-and-Prosperity-Indexes-Full-Data-Set.xlsx", 
+  sheet = "Women's Economic freedom time")
+women_econ <- women_econ_full[c(1,4)]
+
+economic_freedom <- economic_freedom_scores %>%
+  left_join(prop_rights, by="Country") %>%
+  left_join(trade_free, by="Country") %>%
+  left_join(invest_free, by="Country") %>%
+  left_join(women_econ, by="Country")
+
+ggpairs(economic_freedom[c(3:7)])
+```
+
+We have used read_excel to read different sheets from the excel spreadsheet. The general format will remain the same for the following correlation plots.
+
+The purpose of each pairs plot is to both get a better understanding of the relationship between each variable and extract the factors that can best summarize and represent the large categories for later trend analysis with the raw data to be as accurate as possible.
+
+### Freedom and its Main Categories
+
+![Freedom Correlations](https://github.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/blob/main/img/freedom_scores.png?raw=true){width=80%}
+
+Comparing to Freedom Score, the order of the correlations from largest to smallest is:
+
+- **Political Freedom** (0.946),  
+- **Legal Freedom** (0.942),  
+- **Economic Freedom** (0.895).  
+
+### Prosperity and its Main Cateogries
+
+![Prosperity Correlations](https://github.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/blob/main/img/prosperity_scores.png?raw=true){width=80%}
+
+The largest correlation with Prosperity Score is **Environment Score** with correlation coefficient 0.929.
+
+### Freedom Subcategory (1)
+
+![Political Freedom](https://github.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/blob/main/img/political_freedom.png?raw=true){width=80%}
+
+The two factors with the largest correlations with Political Freedom are:
+
+- **Civil Liberties** (0.981), and    
+- **Political Rights** (0.979).  
+
+### Freedom Subcategory (2)
+
+![Legal Freedom](https://github.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/blob/main/img/legal_freedom.png?raw=true){width=80%}
+
+There is an abundant amount of variables to work with, but the 3 variables that have highest correlation with Legal Freedom Score are 
+
+- **Regulatory Effectiveness** (0.952),  
+- **Criminal Justice** (0.944), and  
+- **Civil Justice** (0.936).
+
+### Freedom Subcategory (3)
+
+![Economic Freedom](https://github.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/blob/main/img/economic_freedom.png?raw=true){width=80%}
+
+The two factors with the highest correlation with Economic Freedom are:
+
+- **Property Rights** (0.899), and  
+- **Investment Freedom** (0.896).
+
+Knowing the factors and variables that have the largest correlations with their corresponding categories, we will dive into various models for analysis.
+
+
+
+## Statistical Learning Methods
+
+### Linear Regression for General Scores
+
+```
+## SCORES
+model_data <- free_prosp_data %>%
+  dplyr::select(region, freedom_score, prosperity_score) %>%
+  mutate(log_prosperity = log(prosperity_score))
+lin_model = lm(freedom_score ~ log_prosperity, model_data)
+
+## Check normalities, outliers, heteroscedasticity
+plot(model_data$freedom_score, model_data$log_prosperity)
+plot(lin_model)
+summary(lin_model)
+
+ggplot(data = model_data, aes(x = (freedom_score), y = prosperity_score)) +
+  geom_point(aes(color = region)) + 
+  geom_smooth(method = "glm", se = T) + 
+  labs(title = "Freedom Score v Prosperity Score") + 
+  xlab("Freedom Score") +
+  ylab("Prosperity Score")
+```
+
+![Linear Regression](https://github.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/blob/main/img/freedomvprosperity.png?raw=true){width=60%}
+
+From this plot we can infer that there seems to be an upward curve resembling an exponential relationship. Thus, there may not be a clear linear relationship between freedom and prosperity. Expanding upon this, we notice that it may be possible to split the data into clusters. We will attempt to cluster the groups using Gaussian Mixture Model method.
+
+### Gaussian Mixture Model Clustering
+
+![Gaussian Mixture Model](https://github.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/blob/main/img/gaussian_clusters.png?raw=true){width=60%}
+
+We can see from the clusters above that there are two clustered groups between the free and prosperous countries against the unfree and unprosperous countries. This is interesting as similar observations have been made during the exploratory phase that EU regions have, in general, higher scores of prosperity and freedom.
+
+
+### Machine Learning Models for porsperity score prediction
 
 We use several supervised learning methods to build prediction models for prosperity scores based on all the freedom subcategories, and compare their performances. 
 
@@ -307,11 +447,7 @@ The time series analysis performed for multiple cases generally aligns with our 
 
 ### Limitations and Future Work
 
-There are several limitations regarding the this research project and possibilities for other researchers to expand upon:  
-- Investigate scores from past years  
-- Predict the futuristic scores of nations  
-- Instead of using the general correlation, other methods could be used to determine significant variables (e.g. PCA method)
-- Attempt on building a generalized linear model that can give an estimate to a country's freedom score given the raw data 
+There are several limitations regarding the this research project and possibilities for other researchers to expand upon. Other researchers could investigate scores from past years, such as 2006. They could use the dataset to predict the futuristic scores of nations and develop brand new models or methods for this prediction. Or, unlike our process, PCA methods could be used to reduce the dimentionality of our dataset. Another possibility is to attempt on building a generalized linear model that can give an estimate to a country's freedom score given the raw data.
 
 
 ## References 
