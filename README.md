@@ -15,14 +15,14 @@ Our general plan is to look at how categories of freedom and prosperity is corre
 
 # Project Deliverables
 #### Final Report
-+ pdf
-+ rmd
++ [html](https://github.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/blob/main/final_report/final_report.html)
++ [rmd](https://github.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/blob/main/final_report/final_report.Rmd)
 #### Presentation
-+ [slides](https://github.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/blob/main/presentation-document-updated%203.html)
-+ [rmd](https://github.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/blob/main/presentation-document-updated.Rmd)
++ [slides](https://github.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/blob/main/presentation/presentation-document-updated%203.html)
++ [rmd](https://github.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/blob/main/presentation/presentation-document-updated.Rmd)
 + [video](https://uofi.app.box.com/s/suyqhkg73witz7yq1jmqfg3qvytphptf)
 #### Peer Review
-+ file
++ [file](https://github.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/blob/main/Peer%20Review.pdf)
 
 # Data Source
 #### Atlantic Council Freedom and Prosperity Center
