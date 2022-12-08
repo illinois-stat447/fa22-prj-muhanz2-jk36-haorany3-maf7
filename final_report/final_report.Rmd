@@ -135,6 +135,19 @@ Values for the overall categories were calculated by taking the average of all i
 
 We start by analyzing the overall scores for freedom and prosperity. Here is a graph displaying freedom and prosperity scores for each country, colored by region. This coloring will stay consistent throughout the initial descriptive data analysis.
 
+```
+freedom_category_factor <- factor(free_prosp_data$freedom_category, levels = c("Unfree", "Mostly Unfree", "Mostly Free", "Free"))
+prosperity_category_factor <- factor(free_prosp_data$prosperity_category, levels = c("Unprosperous", "Mostly Unprosperous", "Mostly Prosperous", "Prosperous"))
+selected <- free_prosp_data %>% dplyr::select(freedom_score, prosperity_score)
+summary(selected)
+apply(selected, 2, sd)
+summary(freedom_category_factor)
+summary(prosperity_category_factor)
+table(free_prosp_data$region)
+overalldescriptive <- describe(selected)
+View(overalldescriptive)
+```
+
 ![](https://raw.githubusercontent.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/main/img/maf7/overallscores.png){width=75%}
 
 Both freedom and prosperity scores are scaled to values between 0 and 100 inclusive. Here are some basic statistics for both scores (rounded to two decimal places):
@@ -153,13 +166,28 @@ Both freedom and prosperity scores are scaled to values between 0 and 100 inclus
 - Minimum: 15.96
 - Maximum: 97.13
 
-The following plot shows the distribution of the points:
+The following is the density plot for Prosperity and Freedom Score:
 
 ![](https://github.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/blob/main/img/density_free_prosp.png?raw=true){width=75%}
 
 ### Freedom Score Analysis
 
 We can analyze the freedom scores for each specific region. We can use a box plot to visually see the freedom scores grouped by region.
+
+```
+freedomdescriptivelist <- by(free_prosp_data$freedom_score, free_prosp_data$region, describe)
+freedomdescriptive <- do.call("rbind", freedomdescriptivelist)
+view(freedomdescriptive)
+
+ggplot(free_prosp_data) +
+  aes(x = region, y = freedom_score, color = region) +
+  geom_boxplot() +
+  scale_color_hue() +
+  ggtitle("Freedom Scores Grouped by Region") +
+  xlab("Region") + ylab("Freedom Score") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  coord_cartesian(ylim = c(0, 100))
+```
 
 ![](https://raw.githubusercontent.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/main/img/maf7/freedomscores.png){width=75%}
 
@@ -172,6 +200,17 @@ Our dataset has an additional categorical variable for freedom scores. The categ
 
 We can use this categorical variable to generate an additional visualization for country freedom. These bar plots are shown below.
 
+```
+ggplot(free_prosp_data) +
+  aes(x = freedom_category_factor, fill = region) +
+  geom_bar(position = "dodge") +
+  facet_wrap(~region) +
+  scale_x_discrete(labels = c("UF", "MUF", "MF", "F")) +
+  ggtitle("Freedom Category Breakdown Grouped by Region") +
+  xlab("Freedom") + ylab("Count") +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
 ![](https://raw.githubusercontent.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/main/img/maf7/freedomcategorical.png){width=75%}
 
 From these two plots, we can see that the average freedom score is much higher for Western European countries compared to every other region. There are also 28 Western European countries that are Free out of a total of 41 Free countries. 
@@ -179,6 +218,21 @@ From these two plots, we can see that the average freedom score is much higher f
 ### Prosperity Score Analysis
 
 Similarly to what we have just done for the freedom scores, we can analyze the prosperity scores by region. We can use a box plot to visually see the prosperity scores grouped by region.
+
+```
+prosperitydescriptivelist <- by(free_prosp_data$prosperity_score, free_prosp_data$region, describe)
+prosperitydescriptive <- do.call("rbind", prosperitydescriptivelist)
+view(prosperitydescriptive)
+
+ggplot(free_prosp_data) +
+  aes(x = region, y = prosperity_score, color = region) +
+  geom_boxplot() +
+  scale_color_hue() +
+  ggtitle("Prosperity Scores Grouped by Region") +
+  xlab("Region") + ylab("Prosperity Score") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  coord_cartesian(ylim = c(0, 100))
+```
 
 ![](https://raw.githubusercontent.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/main/img/maf7/prosperityscores.png){width=75%}
 
@@ -190,6 +244,17 @@ Similarly to the freedom scores, our dataset has an additional categorical varia
 - **Prosperous (P)**: prosperity score from 75 to 100 (25 countries)
 
 We can use this categorical variable to generate an additional visualization for country prosperity. These bar plots are shown below.
+
+```
+ggplot(free_prosp_data) +
+  aes(x = prosperity_category_factor, fill = region) +
+  geom_bar(position = "dodge") +
+  facet_wrap(~region) +
+ scale_x_discrete(labels = c("UP", "MUP", "MP", "P")) +
+  ggtitle("Prosperity Category Breakdown Grouped by Region") +
+  xlab("Prosperity") + ylab("Count") +
+  theme(plot.title = element_text(hjust = 0.5))
+```
 
 ![](https://raw.githubusercontent.com/illinois-stat447/fa22-prj-muhanz2-jk36-haorany3-maf7/main/img/maf7/prosperitycategorical.png){width=75%}
 
